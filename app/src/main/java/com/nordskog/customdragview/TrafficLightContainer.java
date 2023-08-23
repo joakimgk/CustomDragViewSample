@@ -19,11 +19,6 @@ public class TrafficLightContainer extends FrameLayout
 	int horizontalMargin = 0;
 	int verticalMargin = 0;
 
-	public enum Orientation
-	{
-		vertical, horizontal
-	}
-
 	public TrafficLightContainer(@NonNull Context context)
 	{
 		super(context);
@@ -173,8 +168,8 @@ public class TrafficLightContainer extends FrameLayout
 				int x = (int) drawPosition.x;
 				int y = (int) drawPosition.y;
 
-				int horizontalCells = child.getCellOrientation() == Orientation.horizontal ? 3 : 1;
-				int verticalCells = child.getCellOrientation() == Orientation.vertical ? 3 : 1;
+				int horizontalCells = child.getCellOrientation() % 180 == 90 ? 3 : 1;
+				int verticalCells = child.getCellOrientation() % 180 == 0 ? 3 : 1;
 
 				int childWidth =  cellPixelSize * horizontalCells;
 				int childHeight = cellPixelSize * verticalCells;

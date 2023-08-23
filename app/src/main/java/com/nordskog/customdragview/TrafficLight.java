@@ -18,7 +18,7 @@ public class TrafficLight extends FrameLayout
 
 	public int cellX = 0;
 	public int cellY = 0;
-	private TrafficLightContainer.Orientation mOrientation = TrafficLightContainer.Orientation.horizontal;
+	private int mOrientation = 0;
 
 	private LinearLayout mLightContainer = null;
 
@@ -56,34 +56,27 @@ public class TrafficLight extends FrameLayout
 		mLightContainer = mContent.findViewById(R.id.light_container);
 
 
-		setCellOrientation( TrafficLightContainer.Orientation.horizontal ); // incase layout orientation doesn't match our value
+		setCellOrientation(90); // incase layout orientation doesn't match our value
 	}
 
-	public TrafficLightContainer.Orientation getCellOrientation()
+	public int getCellOrientation()
 	{
 		return mOrientation;
 	}
 
 	public void rotate()
 	{
-		if (mOrientation == TrafficLightContainer.Orientation.vertical)
-		{
-			setCellOrientation(TrafficLightContainer.Orientation.horizontal);
-		}
-		else
-		{
-			setCellOrientation(TrafficLightContainer.Orientation.vertical);
-		}
+		setCellOrientation((mOrientation + 90) % 360);
 	}
 
-	public void setCellOrientation(TrafficLightContainer.Orientation newOrientation)
+	public void setCellOrientation(int newOrientation)
 	{
 		if (newOrientation == mOrientation)
 			return;
 
 		// Set LinearLayout we're using to house the lights, and shift our cell position
 		// so that it appears to rotate around its center
-		if (newOrientation == TrafficLightContainer.Orientation.vertical)
+		if (newOrientation % 180 == 90)
 		{
 			mOrientation = newOrientation;
 			cellX += 1;
